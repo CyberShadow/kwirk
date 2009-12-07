@@ -8,7 +8,7 @@ INLINE void onCacheTrim() { cacheTrims++; }
 INLINE void onCacheMiss() { cacheMisses++; }
 INLINE void onCacheWrite() { cacheWrites++; }
 
-#ifdef ARCHIVE_STATS
+#ifdef STATS_CACHE
 
 unsigned long cacheHits;
 unsigned long lastCacheHits;
@@ -23,7 +23,7 @@ INLINE void onCacheHit() {}
 
 void printCacheStats()
 {
-#ifdef ARCHIVE_STATS
+#ifdef STATS_CACHE
 	printf("Cache totals: %lu trims, %lu writes, %lu hits, %lu misses\n", cacheTrims, cacheWrites, cacheHits, cacheMisses);
 #else
 	printf("Cache totals: %lu trims, %lu writes, %lu misses\n", cacheTrims, cacheWrites, cacheMisses);
@@ -33,19 +33,19 @@ void printCacheStats()
 void printCacheStatsDelta()
 {
 	printf("\t%lu trims, %lu writes, "
-#ifdef ARCHIVE_STATS
+#ifdef STATS_CACHE
 		"%lu hits, "
 #endif
 		"%lu misses | %d/%d (%d%%)\n", 
 		cacheTrims-lastCacheTrims, cacheWrites-lastCacheWrites, 
-#ifdef ARCHIVE_STATS
+#ifdef STATS_CACHE
 		cacheHits-lastCacheHits, 
 #endif
 		cacheMisses-lastCacheMisses,
 		cacheSize, CACHE_SIZE, cacheSize*100LL/CACHE_SIZE);
 	lastCacheTrims = cacheTrims;
 	lastCacheWrites = cacheWrites;
-#ifdef ARCHIVE_STATS
+#ifdef STATS_CACHE
 	lastCacheHits = cacheHits;
 #endif
 	lastCacheMisses = cacheMisses;

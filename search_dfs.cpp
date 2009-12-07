@@ -131,6 +131,7 @@ NODEI addNode(const State* state, NODEI parent, Step step)
 			np = refreshNode(n, np);
 			if (*state == other)
 			{
+				STATS_NODES_DO(duplicateNodes++);
 				// pop node to front of hash list
 				if (prev)
 				{
@@ -153,6 +154,7 @@ NODEI addNode(const State* state, NODEI parent, Step step)
 		np->next = old;
 		np->lastVisit = 0;
 		//printf("node[%2d] <- %2d: @%2d,%2d: %6s (%3d)\n", nn, parent, step.x+1, step.y+1, actionNames[step.action], frame);
+		STATS_NODES_DO(newNodes++);
 	}
 	if ((nn & 0xFFFF) == 0)
 		printProgress();

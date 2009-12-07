@@ -205,11 +205,13 @@ void addNode(const State* state, NODEI parent, Step step, FRAME frame)
 				if (otherFrame > frame) // better path found? reparent and requeue
 				{
 					//printf("node[%2d] << %2d: @%2d,%2d: %6s (%3d)\n", n, parent, step.x+1, step.y+1, actionNames[step.action], frame);
+					STATS_NODES_DO(reparents++);
 					reparentNode(n, parent, np, frame, step);
 				}
 				else
 				{
 					//printf("node[%2d] .. %2d: @%2d,%2d: %6s (%3d)\n", n, parent, step.x+1, step.y+1, actionNames[step.action], frame);
+					STATS_NODES_DO(duplicateNodes++);
 				}
 				// pop node to front of hash list
 				if (prev)
@@ -233,6 +235,7 @@ void addNode(const State* state, NODEI parent, Step step, FRAME frame)
 		np->next = old;
 		lookup[hash] = nn;
 		//printf("node[%2d] <- %2d: @%2d,%2d: %6s (%3d)\n", nn, parent, step.x+1, step.y+1, actionNames[step.action], frame);
+		STATS_NODES_DO(newNodes++);
 	}
 	queueNode(nn, frame);
 }

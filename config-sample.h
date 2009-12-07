@@ -19,7 +19,10 @@
 #define SYNC_INTEL_SPIN
 
 // Count cache hits? (Affects performance)
-//#define ARCHIVE_STATS
+//#define STATS_CACHE
+
+// Count node statistics? (New/duplicate nodes, reparents)
+//#define STATS_NODES
 
 // This shouldn't normally be changed.
 #define MAX_NODES 0xFFFFFFFFLL

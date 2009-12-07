@@ -181,6 +181,8 @@ MUTEX lookupMutex[PARTITIONS];
 
 FRAME maxFrames;
 
+#include "stats_nodes.cpp"
+
 #ifndef DFS
 #include "search_bfs.cpp"
 #else
@@ -301,6 +303,10 @@ int run(int argc, const char* argv[])
 #ifdef SWAP
 	atexit(&printCacheStats);
 #endif
+#ifdef STATS_NODES
+	atexit(&printNodeStats);
+#endif
+
 	ftime(&startTime);
 	atexit(&printExecutionTime);
 
