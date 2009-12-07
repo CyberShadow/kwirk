@@ -13,7 +13,7 @@ MUTEX cacheMutex;
 #define CACHE_TRIM_THRESHOLD (CACHE_SIZE-(X*Y*2*THREADS))
 
 #ifdef MULTITHREADING
-int threadsRunning = 0, threadsReady = 0;
+int threadsReady = 0;
 CONDITION trimReady, trimDone;
 #endif
 

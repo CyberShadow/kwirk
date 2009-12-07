@@ -321,6 +321,10 @@ void processNode(NODEI n)
 		return; // node was reparented and requeued
 	if (state.playersLeft()==0)
 	{
+#ifdef MULTITHREADING
+		static MUTEX exitMutex;
+		SCOPED_LOCK lock(exitMutex);
+#endif
 		printf("\nExit found, writing path...\n");
 		FILE* f = fopen(STRINGIZE(LEVEL) ".txt", "wt");
 		dumpChain(f, n);
@@ -389,7 +393,9 @@ int search()
 #ifdef DEBUG
 		cacheTest();
 #endif
+#ifdef SWAP
 		printCacheStatsDelta();
+#endif
 	}
 	printf("Exit not found.\n");
 	//dumpCache(); dumpNodes();

@@ -94,17 +94,20 @@ struct Step
 
 NODEI nodeCount = 0;
 
-#ifndef SWAP
-#include "cache_none.cpp"
-#else
-
-INLINE const Node* cachePeek(NODEI index);
 #ifdef DEBUG_VERBOSE
 void testNode(const Node* data, NODEI index, const char* comment);
 #else
 #define testNode(x,y,z)
 #endif
 
+#ifdef MULTITHREADING
+int threadsRunning = 0;
+#endif
+
+#ifndef SWAP
+#include "cache_none.cpp"
+#else
+INLINE const Node* cachePeek(NODEI index);
 #if defined (SWAP_MMAP)
 #include "swap_mmap.cpp"
 #elif defined(SWAP_RAM)
